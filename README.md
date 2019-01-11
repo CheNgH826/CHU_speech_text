@@ -41,8 +41,7 @@ Simply run `python main.py` in the `eng_speech` conda environment. To deactivate
 * Windows has annoying problems with `pip install`, and not everyone has a Mac
 
 ### Why we used a Linux VM instead of a Docker image
-* Playing audio requires platform-specific configurations of the Docker container, so we would still need to make changes according to different host operating systems
-* If we use a VM, audio configuration is a lot easier and less prone to bugs
+* Playing audio is platform-dependent, and configuring a VM is easier than configuring a Docker container when dealing with audio input/output
 
 ### Why we used `conda`
 Easy to control Python versioning and package dependency
