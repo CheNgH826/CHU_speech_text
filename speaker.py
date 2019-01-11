@@ -1,5 +1,4 @@
-import os, requests, time
-import json
+import os, requests, time, platform, subprocess, json
 # import pyaudio, wave
 
 class Speaker(object):
@@ -47,7 +46,14 @@ class Speaker(object):
             print("\nStatus code: " + str(response.status_code) + "\nSomething went wrong. Check your subscription key and headers.\n")
 
     def __play_wav(self):
-        os.system('aplay sample.wav -q')
+        os_name = platform.system() # "Linux", "Darwin", or "Windows"
+        if os_name == "Linux":
+            os.system('aplay sample.wav -q')
+        elif os_name == "Darwin":
+            os.system("afplay sample.wav")
+        elif os_name == "Windows":
+            os.system("start sample.wav")
+
 
     def speak(self, text):
         self.__text2wav(text)
