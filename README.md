@@ -44,6 +44,6 @@ Simply run `python main.py` in the `eng_speech` conda environment. To deactivate
 ### Why we use `conda`
 Easy to control Python versioning and package dependency
 
-### Why we wrote scripts
+### Why we wrote installation scripts
 To save you time ;)
 
