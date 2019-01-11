@@ -2,30 +2,30 @@
 
 ## Installation instructions
 
-### 1. Open Linux VM (Ubuntu 16.04 LTS) using VirtualBox
+#### 1. Open Linux VM (Ubuntu 16.04 LTS) using VirtualBox
 
 TODO: paste tutorial link
 
-### 2. Install [conda](https://conda.io/docs/user-guide/getting-started.html):
+#### 2. Install [conda](https://conda.io/docs/user-guide/getting-started.html):
 1. Run `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
 2. Run `bash Miniconda3-latest-Linux-x86_64.sh`
 
-### 3. Install MongoDB and SQLite:
+#### 3. Install MongoDB and SQLite:
 1. Run `chmod +x setup/db_install.sh`
 2. Run `sudo setup/db_install.sh`
 
 	
-### 4. Create a new `conda` environment
+#### 4. Create a new `conda` environment
 1. Run `conda create -n eng_speech python=3.5.2`
 2. Run `source activate eng_speech`
 3. Run `pip install -r setup/requirements.txt`
 
-### 5. Initialize MongoDB and SQLite databases
+#### 5. Initialize MongoDB and SQLite databases
 1. Run `cd setup/`
 2. Run `python db_init.py`
 3. Run `cd ../`
 
-### 6. Start local MongoDB server
+#### 6. Start local MongoDB server
 In a separate tab, run `mongod --dbpath ./database/mongodb`
 
 ## Setting up the application
@@ -39,15 +39,15 @@ To see examples of querying the MongoDB and SQLite databases, `cd database/` and
 
 ## Architecture design considerations
 
-### Why we used Linux
+#### Why we used Linux
 * Windows has annoying problems with `pip install`, and not everyone has a Mac
 
-### Why we used a Linux VM instead of a Docker image
+#### Why we used a Linux VM instead of a Docker image
 * Playing audio is platform-dependent, and configuring a VM is easier than configuring a Docker container when dealing with audio input/output
 
-### Why we used `conda`
+#### Why we used `conda`
 Easy to control Python versioning and package dependency
 
-### Why we wrote installation scripts
+#### Why we wrote installation scripts
 To save you time ;)
 
