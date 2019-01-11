@@ -35,6 +35,8 @@ In a separate tab, run `mongod --dbpath ./database/mongodb`
 ## Running the application
 Simply run `python main.py` in the `eng_speech` conda environment. To deactivate the conda environment, run `source deactivate`.
 
+To see examples of querying the MongoDB and SQLite databases, `cd database/` and run `python sqlite_query_sample.py` or `python mongodb_query_sample.py`
+
 ## Architecture design considerations
 
 ### Why we used Linux
