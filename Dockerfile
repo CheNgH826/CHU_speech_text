@@ -17,11 +17,8 @@ RUN apt-get install -y apt-transport-https \
 && apt-get install -y alsa-base alsa-utils \
 && apt-get install -y portaudio19-dev
 
-COPY ./setup/requirements.txt /opt/app/requirements.txt
-COPY ./setup/db_init.py /opt/app/db_init.py
 
-RUN cd /opt/app/ \
-&& pip install -r requirements.txt \
-&& python db_init.py
-
-ENTRYPOINT mongod --dbpath /dock/database/mongodb
+ENTRYPOINT cd /dock/ \
+&& pip install -r setup/requirements.txt \
+&& python setup/db_init.py \
+&& mongod --dbpath database/mongodb
