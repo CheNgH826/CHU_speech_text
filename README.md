@@ -2,9 +2,10 @@
 
 ## Installation instructions
 
-#### 1. Open Linux VM (Ubuntu 16.04 LTS) using VirtualBox
-
-TODO: paste tutorial link
+#### 1. Install Linux Ubuntu VM using VirtualBox
+After installing:
+1. Run `sudo apt-get update`
+2. Run`sudo apt-get install git-core`
 
 #### 2. Install [conda](https://conda.io/docs/user-guide/getting-started.html):
 1. Run `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
