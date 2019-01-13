@@ -10,6 +10,9 @@ class Recorder(object):
         with open('config.json', 'r') as f:
             config  = json.load(f)
         api_key = config['api_key']
+        if api_key == "":
+            print("NO API KEY PROVIDED!!!")
+            exit(-1)
         # host    = config['host']
         # port    = config['port']
         
