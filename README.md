@@ -2,53 +2,49 @@
 
 ## Installation instructions
 
-#### 1. Install Linux Ubuntu VM using VirtualBox
+#### 1. Install Ubuntu and Docker
+Install Ubuntu on your computer using dual boot or a VirtualBox VM. Instructions are readily available online.
+
+If you choose to use a VirtualBox VM:
+* **If you have Docker for Windows installed, uninstall it**
+* **If you have Windows Hyper-V enabled, disable it**
+* You need to "Enable Audio Output" and "Enable Audio Input" for the installed Ubuntu VM
+* If you wish, you can also adjust the resolution settings inside Ubuntu to better suit your screen
+* **AFTER STARTING THE VM, DO NOT CHANGE YOUR MICROPHONE OR AUDIO OUTPUT DEVICE**
+
 After installing:
-1. Run `sudo apt-get update`
-2. Run`sudo apt-get install git-core`
+1. `sudo apt-get update`
+2. `sudo apt-get install git-core`
+3. `git clone` this repo. Alternatively, you could also download the repo contents as a ZIP file.
 
-#### 2. Install [conda](https://conda.io/docs/user-guide/getting-started.html):
-1. Run `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
-2. Run `bash Miniconda3-latest-Linux-x86_64.sh`
+#### 2. Install Docker on your Ubuntu OS
+Instructions are [available here](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
-#### 3. Install MongoDB and SQLite:
-1. Run `chmod +x setup/db_install.sh`
-2. Run `sudo setup/db_install.sh`
+#### 3. Run our Docker container
+1. `cd` into this repo's directory
+2. `sudo docker build -t eng-speech .` (this will take a while to run)
+3. `sudo docker run -v "$(pwd)":/dock --device /dev/snd:/dev/snd --name eng-speech eng-speech`
 
-	
-#### 4. Create a new `conda` environment
-1. Run `conda create -n eng_speech python=3.5.2`
-2. Run `source activate eng_speech`
-3. Run `pip install -r setup/requirements.txt`
-
-#### 5. Initialize MongoDB and SQLite databases
-1. Run `cd setup/`
-2. Run `python db_init.py`
-3. Run `cd ../`
-
-#### 6. Start local MongoDB server
-In a separate tab, run `mongod --dbpath ./database/mongodb`
+After running these commands, the Docker container (which has a running MongoDB server) will be alive in the background.
 
 ## Setting up the application
 * Edit dialogue sentences in `conversation.txt`
 * Provide the API key and resource name in `config.json`
 
 ## Running the application
-Simply run `python main.py` in the `eng_speech` conda environment. To deactivate the conda environment, run `source deactivate`.
+1. `sudo docker exec -it eng-speech bash`
+2. `cd dock/` then `python main.py`
+If you make any changes to the files inside `dock/`, they will also change in your host environment (the Ubuntu OS).
 
-To see examples of querying the MongoDB and SQLite databases, `cd database/` and run `python sqlite_query_sample.py` or `python mongodb_query_sample.py`
+When you close the shell, the container will still be running in the background. The next time you want to run the application again, just `sudo docker exec -it eng-speech bash` again.
+
+To see examples of querying the MongoDB and SQLite databases, you can `pip3 install pymongo`, then `python3 sqlite_query_sample.py` or `python3 mongodb_query_sample.py`.
+Alternatively, `pymongo` is already installed in our Docker container, so you could also `sudo docker exec -it eng-speech bash`, `cd dock/database/`, then `python sqlite_query_sample.py` or `python mongodb_query_sample.py`.
 
 ## Architecture design considerations
 
-#### Why we used Linux
-* Windows has annoying problems with `pip install`, and not everyone has a Mac
+#### Why do we use Docker? Why do we use a Linux-based Docker container?
+Docker installs dependencies in a very convenient and stable way, and the user does not have to waste time debugging annoying installation bugs. We use a Linux-based container because the environment can be set up automatically with scripts, unlike Windows which requires manual configuration with GUIs for some software.
 
-#### Why we used a Linux VM instead of a Docker image
-* Playing audio is platform-dependent, and configuring a VM is easier than configuring a Docker container when dealing with audio input/output
-
-#### Why we used `conda`
-Easy to control Python versioning and package dependency
-
-#### Why we wrote installation scripts
-To save you time ;)
-
+#### Why do we have to install Docker under a Linux host OS? Why not use Docker for Windows or Mac?
+Docker containers for Windows actually run on Hyper-V Linux VMs, which are unable to pass through audio. Docker containers for Mac run on xhyve Linux VMs, which are also unable to pass through audio (although an inconvenient pulseaudio hack seems to exist). However, Virtualbox can pass through audio from Linux VMs conveniently, and it equally easy for Linux-based Docker containers to pass audio through to a Linux host OS. Thus, to play audio, a Linux-based container first passes the audio to the Linux host OS, and if the Linux OS is running in a VirtualBox VM, Virtualbox then passes the audio to the “real” host OS (Windows or Mac). The resulting audio output may be crackly, but tolerable for our use case.
