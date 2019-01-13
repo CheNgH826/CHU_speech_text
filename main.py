@@ -16,7 +16,7 @@ def remove_punc(s):
 rec = Recorder()
 speaker = Speaker()
 # Connect with SQLite
-sqlite_connection = sqlite3.connect('log.db')
+sqlite_connection = sqlite3.connect('/dock/database/sqlite/log.db')
 sqlite_cursor = sqlite_connection.cursor()
 # Connect with MongoDB
 mongo_client = MongoClient('mongodb://localhost:27017/')

@@ -24,4 +24,4 @@ RUN cd /opt/app/ \
 && pip install -r requirements.txt \
 && python db_init.py
 
-ENTRYPOINT mongod --dbpath dock/database/mongodb
+ENTRYPOINT mongod --dbpath /dock/database/mongodb
