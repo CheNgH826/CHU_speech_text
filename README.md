@@ -25,7 +25,7 @@ Instructions are [available here](https://docs.docker.com/install/linux/docker-c
 2. `sudo docker build -t eng-speech .` (this will take a while to run)
 3. `sudo docker run -v "$(pwd)":/dock --device /dev/snd:/dev/snd --name eng-speech eng-speech`
 
-After running these commands, the Docker container (which has a running MongoDB server) will be alive in the background.
+After running these commands, the Docker container (which runs a MongoDB server) will be alive in the background.
 
 ## Setting up the application
 * Edit dialogue sentences in `conversation.txt`
