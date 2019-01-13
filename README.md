@@ -28,7 +28,7 @@ Instructions are [available here](https://docs.docker.com/install/linux/docker-c
 After running these commands, the Docker container (which runs a MongoDB server) will be alive in the background.
 
 ## Setting up the application
-* Edit dialogue sentences in `conversation.txt`
+* Edit dialogue sentences in `conversation.txt`. For regularization purposes, all words have to be in lowercase.
 * Provide the API key and resource name in `config.json`
 
 ## Running the application
