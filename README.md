@@ -1,4 +1,4 @@
-# CHU_speech_text
+# Practice English pronunciation with AI using Azure Cognitive Speech services
 
 ## Installation instructions
 
