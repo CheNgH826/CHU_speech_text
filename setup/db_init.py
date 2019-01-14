@@ -7,7 +7,7 @@ if not os.path.exists(sqlite_dir):
 sqlite_connection = sqlite3.connect('{}/log.db'.format(sqlite_dir))
 sqlite_cursor = sqlite_connection.cursor()
 
-sqlite_cursor.execute('''CREATE TABLE user_answers
+sqlite_cursor.execute('''CREATE TABLE IF NOT EXISTS user_answers
 						(time TEXT, correct INTEGER, user_input TEXT, real_answer TEXT)''')
 
 sqlite_connection.commit()
