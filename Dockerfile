@@ -2,6 +2,8 @@ FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+COPY ./setup/requirements.txt /opt/app/requirements.txt
+
 RUN apt-get install -y apt-transport-https \
 && apt-get update \
 && apt-get install -y tzdata \
@@ -15,10 +17,9 @@ RUN apt-get install -y apt-transport-https \
 && apt-get install -y mongodb-org \
 && apt install sqlite3 \
 && apt-get install -y alsa-base alsa-utils \
-&& apt-get install -y portaudio19-dev
-
+&& apt-get install -y portaudio19-dev \
+&& pip install -r /opt/app/requirements.txt
 
 ENTRYPOINT cd /dock/ \
-&& pip install -r setup/requirements.txt \
 && python setup/db_init.py \
 && mongod --dbpath database/mongodb
