@@ -21,13 +21,14 @@ sqlite_cursor = sqlite_connection.cursor()
 # Connect with MongoDB
 mongo_client = MongoClient('mongodb://localhost:27017/')
 
-for sentence in dialog:
+for i, sentence in enumerate(dialog):
     correct = False
     while not correct:
-        print('please read this: '+sentence)
-        # print('Press ENTER to start recording: ')
-        # input()
-        response = rec.listen_to_command()
+        print('[{}/{}] please read this: '.format(i+1, len(dialog))+sentence)
+        print('Press ENTER to start recording: ', end='')
+        input()
+        response = rec.listen_to_command(mode='manual', duration=3)
+        print(response)
         result = rec.parse_response(response)
         result = remove_punc(result.lower())
 
